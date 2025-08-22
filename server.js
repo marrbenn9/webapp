@@ -1,4 +1,7 @@
 const express = require('express');
+const axios = require('axios');      // <--- needed
+const cheerio = require('cheerio');  // <--- needed
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -11,11 +14,6 @@ app.get('/', (req, res) => {
 app.get('/hello', (req, res) => {
   res.json({ message: 'Hello from your Express server!' });
 });
-
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
-
 
 // Scraper endpoint for Newegg
 app.get("/scrape/newegg", async (req, res) => {
@@ -53,6 +51,10 @@ app.get("/scrape/newegg", async (req, res) => {
     console.error("Scraper error:", error.message);
     res.status(500).json({ error: "Failed to scrape Newegg" });
   }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
 
 module.exports = app;
